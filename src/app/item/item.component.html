@@ -1,0 +1,52 @@
+<div
+  class="d-flex flex-col align-items-center justify-content-between form-check"
+  (mouseover)="visibility = true"
+  (mouseout)="visibility = false"
+>
+  <div>
+    <input
+      class="form-check-input"
+      [id]="item.title"
+      type="checkbox"
+      (change)="item.done = !item.done"
+      [checked]="item.done"
+    />
+    <label
+      class="align-self-center text-wrap"
+      *ngIf="!editable"
+      (dblclick)="editable = !editable"
+      ><span
+        class="text-wrap"
+        [class]="item.done ? 'text-decoration-line-through' : 'null'"
+        >{{ item.title }}</span
+      ></label
+    >
+  </div>
+  <div class="align-self-end" *ngIf="visibility">
+    <button
+      class="btn align-self-end text-center"
+      (click)="remove.emit()"
+      *ngIf="!editable"
+    >
+      ❌
+    </button>
+  </div>
+
+  <!-- This section shows only if user clicks Edit button -->
+  <div class="input-group" *ngIf="editable">
+    <input
+      class="form-control form-control-sm p-0"
+      placeholder="edit item"
+      [value]="item.title"
+      #editedItem
+      (keyup.enter)="saveItem(editedItem.value)"
+    />
+
+    <div class="btn-wrapper">
+      <button class="btn btn-sm" (click)="editable = !editable">Cancel</button>
+      <button class="btn btn-sm" (click)="saveItem(editedItem.value)">
+        Save
+      </button>
+    </div>
+  </div>
+</div>
