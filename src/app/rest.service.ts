@@ -11,12 +11,12 @@ import { Item } from "./item";
   providedIn: "root",
 })
 export class RestService {
-  private REST_API_SERVER = "http://127.0.0.1:8000/api/tasks";
+  private REST_API_SERVER = "http://mauroue.pythonanywhere.com/api/tasks";
 
   constructor(private httpClient: HttpClient) {}
 
   getTasks(): Observable<Item[]> {
-    return this.httpClient.get<Item[]>(this.REST_API_SERVER);
+    return this.httpClient.get<Item[]>(this.REST_API_SERVER + ".json");
   }
 
   createTask(data) {
